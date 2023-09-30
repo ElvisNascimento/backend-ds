@@ -34,6 +34,6 @@ export class Curriculo {
   func: string;
 
   @JoinTable()
-  @ManyToMany(() => Skill, (skill) => skill.curriculo)
+  @ManyToMany(() => Skill, (skill) => skill.curriculo, { cascade: true })
   skills: Skill[];
 }
