@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Curriculo } from './curriculo.entity';
 
 @Entity('skills')
@@ -15,6 +15,6 @@ export class Skill {
   @Column()
   level: string;
 
-  @ManyToMany(() => Curriculo, (curriculos) => curriculos.skills)
+  @ManyToOne(() => Skill, (skill) => skill.curriculo)
   curriculo: Curriculo[];
 }

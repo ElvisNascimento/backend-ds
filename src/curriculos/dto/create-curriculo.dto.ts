@@ -1,4 +1,5 @@
-import { IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsArray, IsString, ValidateNested } from 'class-validator';
 export class CreateCurriculoDto {
   @IsString()
   readonly name: string;
@@ -21,6 +22,16 @@ export class CreateCurriculoDto {
   @IsString()
   readonly func: string;
 
-  @IsString({ each: true })
-  readonly skills: string[];
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => SkillDto)
+  readonly skills: SkillDto[];
+}
+export class SkillDto {
+  @IsString()
+  readonly name: string;
+  @IsString()
+  readonly level: string;
+  @IsString()
+  readonly description: string;
 }
