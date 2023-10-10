@@ -1,34 +1,27 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/user/entities/user.entity';
-import { Repository } from 'typeorm';
+import { Injectable } from '@nestjs/common';
+import { UserService } from 'src/user/user.service';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private readonly jwtService: JwtService,
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
-  ) {}
+  constructor(private readonly userService: UserService) {}
 
   async login(credentials: any) {
-    const user = await this.validateUser(credentials);
-    if (user) {
-      const token = this.jwtService.sign({
-        email: user.email,
-        admin: user.admin,
-      });
-      return { token, user };
-    }
-    throw new NotFoundException(`User or password incorrect!`);
+    return credentials;
   }
 
-  async validateUser(credentials: {
-    email: string;
-    password: string;
-  }): Promise<User | null> {
-    const { email, password } = credentials;
-    return await this.userRepository.findOne({ where: { email, password } });
+  async validateUser(email: string, password: string) {
+    const user = await this.userService.findByEmail(email);
+    if (user) {
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+
+      if (isPasswordValid) {
+        return {
+          ...user,
+          password: undefined,
+        };
+      }
+    }
+    throw new Error('Email Address or password provided is incorrect!');
   }
 }
