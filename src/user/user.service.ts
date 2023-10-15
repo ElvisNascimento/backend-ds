@@ -15,6 +15,8 @@ export class UserService {
 
   async create(createUserDto: CreateUserDto) {
     try {
+      console.log("usuario criado");
+      
       const newUser = this.userRepository.create({
         ...createUserDto,
         password: await bcrypt.hash(createUserDto.password, 2),
@@ -67,9 +69,5 @@ export class UserService {
       throw new NotFoundException(`User ID ${id} Not Found!`);
     }
     return this.userRepository.delete(userToRemove);
-  }
-
-  async registerUser(newUser: CreateUserDto) {
-    return console.log(newUser);
   }
 }
