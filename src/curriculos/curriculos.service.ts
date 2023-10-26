@@ -15,6 +15,7 @@ export class CurriculosService {
   async create(createCurriculoDto: CreateCurriculoDto) {
     const curriculo = this.curriculoRepo.create({
       ...createCurriculoDto,
+      status: "aguardando"
     });
     return this.curriculoRepo.save(curriculo);
   }

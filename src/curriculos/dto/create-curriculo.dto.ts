@@ -26,6 +26,9 @@ export class CreateCurriculoDto {
   @ValidateNested({ each: true })
   @Type(() => SkillDto)
   readonly skills: SkillDto[];
+  
+  // @IsString()
+  readonly status: string;
 }
 export class SkillDto {
   @IsString()

@@ -36,4 +36,7 @@ export class Curriculo {
   @JoinTable()
   @ManyToMany(() => Skill, (skill) => skill.curriculo, { cascade: true })
   skills: Skill[];
+
+  @Column()
+  status?: string;
 }

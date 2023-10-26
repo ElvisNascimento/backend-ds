@@ -31,7 +31,8 @@ export class UserController {
   findOne(@Param('email') email: string) {
     return this.userService.findByEmail(email);
   }
-
+  
+  @IsPublic()
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(+id, updateUserDto);

@@ -15,6 +15,7 @@ export class CreateCurriculosTable1695989129952 implements MigrationInterface {
           { name: 'phone', type: 'varchar' },
           { name: 'education', type: 'varchar' },
           { name: 'func', type: 'varchar' },
+          { name: 'status', type: 'varchar' },
           {
             name: 'created_at',
             type: 'timestamp',
