@@ -34,6 +34,14 @@ export class CurriculosService {
     return curriculo;
   }
 
+  async findByEmail(email: string) {
+    const curriculoEmail = await this.curriculoRepo.findOne({
+      where: { email },
+    });
+
+    return curriculoEmail;
+  }
+
   async update(id: number, updateCurriculoDto: UpdateCurriculoDto) {
     const curriculo = await this.curriculoRepo.preload({
       ...updateCurriculoDto,
