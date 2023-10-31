@@ -35,10 +35,12 @@ export class CurriculosService {
   }
 
   async findByEmail(email: string) {
-    const curriculoEmail = await this.curriculoRepo.findOne({
+    if (!email) {
+      throw new NotFoundException(`Email ${email} Not Found!`);
+    }
+    const curriculoEmail = await this.curriculoRepo.find({
       where: { email },
     });
-
     return curriculoEmail;
   }
 

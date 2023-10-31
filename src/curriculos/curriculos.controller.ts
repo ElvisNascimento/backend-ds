@@ -28,11 +28,13 @@ export class CurriculosController {
     return this.curriculosService.findAll();
   }
 
+  @IsPublic()
   @Get(':email')
   findOne(@Param('email') email: string) {
     return this.curriculosService.findByEmail(email);
   }
 
+  @IsPublic()
   @Patch(':id')
   update(
     @Param('id') id: string,
