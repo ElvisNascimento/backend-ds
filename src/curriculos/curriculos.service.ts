@@ -24,19 +24,34 @@ export class CurriculosService {
     return await this.curriculoRepo.find({ relations: ['skills'] });
   }
 
-  async findOne(id: number) {
-    const curriculo = await this.curriculoRepo.findOne({
-      where: { id },
+  // async findOne(id: number) {
+  //   const curriculo = await this.curriculoRepo.findOne({
+  //     where: { id },
+  //     relations: ['skills'],
+  //   });
+  //   if (!curriculo) {
+  //     throw new NotFoundException(`Curriculo ID ${id} Not Found!`);
+  //   }
+  //   return curriculo;
+  // }
+
+  async findOne(email: string) {
+    if (!email) {
+      throw new NotFoundException(`Email ${email} Not Found!`);
+    }
+    const curriculo = await this.curriculoRepo.find({
+      where: { email },
       relations: ['skills'],
     });
     if (!curriculo) {
-      throw new NotFoundException(`Curriculo ID ${id} Not Found!`);
+      throw new NotFoundException(`Não há curriculos para este email: ${email}!`);
     }
     return curriculo;
   }
 
   async update(id: number, updateCurriculoDto: UpdateCurriculoDto) {
     const curriculo = await this.curriculoRepo.preload({
+      // status,
       ...updateCurriculoDto,
       id,
     });

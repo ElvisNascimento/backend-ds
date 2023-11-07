@@ -28,10 +28,16 @@ export class CurriculosController {
     return this.curriculosService.findAll();
   }
   
+  // @IsPublic()
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.curriculosService.findOne(+id);
+  // }
+
   @IsPublic()
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.curriculosService.findOne(+id);
+  @Get(':email')
+  findOne(@Param('email') email: string) {
+    return this.curriculosService.findOne(email);
   }
   
   @IsPublic()
@@ -39,12 +45,13 @@ export class CurriculosController {
   update(
     @Param('id') id: string,
     @Body() updateCurriculoDto: UpdateCurriculoDto,
-  ) {
-    return this.curriculosService.update(+id, updateCurriculoDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.curriculosService.remove(+id);
+    ) {
+      return this.curriculosService.update(+id, updateCurriculoDto);
+    }
+    
+    @IsPublic()
+    @Delete(':id')
+    remove(@Param('id') id: string) {
+      return this.curriculosService.remove(+id);
   }
 }

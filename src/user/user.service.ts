@@ -15,8 +15,6 @@ export class UserService {
 
   async create(createUserDto: CreateUserDto) {
     try {
-      console.log("usuario criado");
-      
       const newUser = this.userRepository.create({
         ...createUserDto,
         password: await bcrypt.hash(createUserDto.password, 2),

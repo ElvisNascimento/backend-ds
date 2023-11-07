@@ -38,5 +38,5 @@ export class Curriculo {
   skills: Skill[];
 
   @Column()
-  status?: string;
+  status: string;
 }

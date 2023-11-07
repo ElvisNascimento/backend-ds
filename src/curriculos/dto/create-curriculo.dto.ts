@@ -1,5 +1,6 @@
 import { Type } from 'class-transformer';
 import { IsArray, IsString, ValidateNested } from 'class-validator';
+import { Column } from 'typeorm';
 export class CreateCurriculoDto {
   @IsString()
   readonly name: string;
@@ -21,14 +22,15 @@ export class CreateCurriculoDto {
 
   @IsString()
   readonly func: string;
+  
+  @IsString()
+  readonly status: string;
 
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => SkillDto)
   readonly skills: SkillDto[];
   
-  // @IsString()
-  readonly status: string;
 }
 export class SkillDto {
   @IsString()
